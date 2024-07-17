@@ -1,8 +1,10 @@
 package com.augusto.ListaDeContatos.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Endereco {
 
     @Id
