@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -61,5 +63,51 @@ public class ContatoController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Contato> updateItemsContato(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        Optional<Contato> contatoOptional = contatoRepository.findById(id);
+
+        if (contatoOptional.isPresent()) {
+            Contato contatoExistente = contatoOptional.get();
+
+            updates.forEach((key, value) -> {
+                switch (key) {
+                    case "nome":
+                        contatoExistente.setNome((String) value);
+                        break;
+
+                    case "email":
+                        contatoExistente.setEmail((String) value);
+                        break;
+
+                    case "telefone":
+                        contatoExistente.setTelefone((String) value);
+                        break;
+
+                    case "dataNascimento":
+                        contatoExistente.setDataNascimento(LocalDate.parse((String) value));
+                        break;
+
+                    case "enderecos":
+                        contatoExistente.getEnderecos().clear();
+                        List<Endereco> novosEnderecos = (List<Endereco>) value;
+                        for (Endereco endereco : novosEnderecos) {
+                            endereco.setContato(contatoExistente);
+                            contatoExistente.getEnderecos().add(endereco);
+                        }
+                        break;
+
+                    default:
+                        throw new RuntimeException("Campo desconhecido: " + key);
+                }
+            });
+            contatoRepository.save(contatoExistente);
+            return new ResponseEntity<>(contatoExistente, HttpStatus.OK);
+        } else {
+            throw new RuntimeException("Contato não encontrado");
+        }
+    }
+
 
 }
