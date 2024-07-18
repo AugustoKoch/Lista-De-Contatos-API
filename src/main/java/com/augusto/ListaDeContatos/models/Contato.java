@@ -1,5 +1,6 @@
 package com.augusto.ListaDeContatos.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,5 +30,6 @@ public class Contato {
     private LocalDate DataNascimento;
 
     @OneToMany(mappedBy = "contato", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("contato-endereco")
     private List<Endereco> enderecos;
 }
