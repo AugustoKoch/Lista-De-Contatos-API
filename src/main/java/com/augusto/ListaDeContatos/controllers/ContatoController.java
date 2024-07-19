@@ -109,5 +109,16 @@ public class ContatoController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Contato> deleteContato(@PathVariable Long id) {
+        Optional<Contato> contatoOptional = contatoRepository.findById(id);
+
+        if (contatoOptional.isPresent()) {
+            contatoRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            throw new RuntimeException("Contato não encontrado");
+        }
+    }
 
 }
