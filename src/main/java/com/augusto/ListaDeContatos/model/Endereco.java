@@ -1,4 +1,4 @@
-package com.augusto.ListaDeContatos.models;
+package com.augusto.ListaDeContatos.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

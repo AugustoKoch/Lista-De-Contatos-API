@@ -1,6 +1,6 @@
-package com.augusto.ListaDeContatos.controllers;
+package com.augusto.ListaDeContatos.controller;
 
-import com.augusto.ListaDeContatos.models.Contato;
+import com.augusto.ListaDeContatos.model.Contato;
 import com.augusto.ListaDeContatos.service.ContatoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

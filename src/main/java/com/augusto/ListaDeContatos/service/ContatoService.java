@@ -1,8 +1,8 @@
 package com.augusto.ListaDeContatos.service;
 
-import com.augusto.ListaDeContatos.models.Contato;
-import com.augusto.ListaDeContatos.models.Endereco;
-import com.augusto.ListaDeContatos.repositories.ContatoRepository;
+import com.augusto.ListaDeContatos.model.Contato;
+import com.augusto.ListaDeContatos.model.Endereco;
+import com.augusto.ListaDeContatos.repository.ContatoRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
