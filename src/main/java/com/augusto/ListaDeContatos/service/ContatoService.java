@@ -3,6 +3,7 @@ package com.augusto.ListaDeContatos.service;
 import com.augusto.ListaDeContatos.model.Contato;
 import com.augusto.ListaDeContatos.model.Endereco;
 import com.augusto.ListaDeContatos.repository.ContatoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,8 +86,11 @@ public class ContatoService {
 
                     case "enderecos":
                         contatoExistente.getEnderecos().clear();
-                        List<Endereco> novosEnderecos = (List<Endereco>) value;
-                        for (Endereco endereco : novosEnderecos) {
+                        List<?> novosEnderecos = (List<?>) value;
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        for (Object enderecoObj : novosEnderecos) {
+                            Endereco endereco = objectMapper.convertValue(enderecoObj, Endereco.class);
                             endereco.setContato(contatoExistente);
                             contatoExistente.getEnderecos().add(endereco);
                         }
