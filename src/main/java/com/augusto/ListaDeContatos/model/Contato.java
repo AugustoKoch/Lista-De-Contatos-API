@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class Contato {
 
@@ -32,4 +32,8 @@ public class Contato {
     @OneToMany(mappedBy = "contato", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("contato-endereco")
     private List<Endereco> enderecos;
+
+    public Contato() {
+        this.enderecos = new ArrayList<>();
+    }
 }
