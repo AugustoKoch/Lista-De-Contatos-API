@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ContatoServiceTest {
 
@@ -55,7 +55,16 @@ class ContatoServiceTest {
     }
 
     @Test
+    @DisplayName("Deve retornar CREATED quando o contato é criado")
     void createContato() {
+        Contato contato = new Contato();
+        when(contatoRepository.save(contato)).thenReturn(contato);
+
+        ResponseEntity<Contato> response = contatoService.createContato(contato);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(contato, response.getBody());
+        verify(contatoRepository, times(1)).save(contato);
     }
 
     @Test
