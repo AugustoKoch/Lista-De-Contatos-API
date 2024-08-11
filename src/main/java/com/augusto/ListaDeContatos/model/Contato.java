@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -27,7 +26,7 @@ public class Contato {
 
     private String telefone;
 
-    private LocalDate DataNascimento;
+    private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "contato", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("contato-endereco")
